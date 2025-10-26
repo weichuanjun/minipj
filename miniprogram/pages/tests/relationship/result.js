@@ -365,7 +365,7 @@ Page({
     const insights = (this.data.insights||[]).map(t=>`<text class=\\"li\\">• ${t}</text>`).join('')
     const sugg = (this.data.suggestions||[]).map(t=>`<text class=\\"li\\">• ${t}</text>`).join('')
     const radarImg = this._radarSnapshotUrl ? `<image class=\\"radar\\" src=\\"${this._radarSnapshotUrl}\\" />` : ''
-    // Height estimates (must set for wxml-to-canvas)
+    // Height estimates for layout sizing
     const cardPad = 16
     const hTitle = 32 + 18 + 48 + 24 + cardPad*2 // title/tip/bhi/sub
     const hDimsText = dimLines * 26 + 24

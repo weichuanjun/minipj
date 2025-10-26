@@ -57,6 +57,4 @@
 
   <!-- 隐藏画布用于生成图片 -->
   <canvas id="poster" type="2d" canvas-id="poster" style="position:absolute;left:-9999px;top:-9999px;width: 320px; height: 560px;"></canvas>
-  <!-- wxml-to-canvas 组件（通过 npm 安装后生效） -->
-  <wxml-to-canvas class="widget" id="w2c" style="width:0;height:0;position:absolute;left:-9999px;top:-9999px"></wxml-to-canvas>
 </view>
