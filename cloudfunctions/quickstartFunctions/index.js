@@ -4,6 +4,44 @@ cloud.init({
 });
 
 const db = cloud.database();
+// 用户信息写入/更新
+const upsertUser = async (event) => {
+  const wxContext = cloud.getWXContext();
+  const openid = wxContext.OPENID;
+  const profile = event && event.profile ? event.profile : {};
+  const now = Date.now();
+  try {
+    await db.collection('users').doc(openid).set({
+      data: {
+        _id: openid,
+        nickname: profile.nickname || '',
+        avatarUrl: profile.avatarUrl || '',
+        createdAt: now,
+        lastActiveAt: now,
+      },
+    });
+  } catch (e) {
+    // if exists, update partial
+    await db.collection('users').doc(openid).update({
+      data: {
+        nickname: profile.nickname || db.command.remove(),
+        avatarUrl: profile.avatarUrl || db.command.remove(),
+        lastActiveAt: now,
+      },
+    });
+  }
+  return { success: true, openid };
+};
+
+// 记录用户做过的测试（不含测试结果，仅测试ID与时间）
+const recordUserTest = async (event) => {
+  const wxContext = cloud.getWXContext();
+  const openid = wxContext.OPENID;
+  const testId = event && event.testId;
+  if (!testId) return { success: false, errMsg: 'testId required' };
+  await db.collection('user_tests').add({ data: { openid, testId, takenAt: Date.now() } });
+  return { success: true };
+};
 // 获取openid
 const getOpenId = async () => {
   // 获取基础信息
@@ -170,6 +208,10 @@ exports.main = async (event, context) => {
   switch (event.type) {
     case "getOpenId":
       return await getOpenId();
+    case "upsertUser":
+      return await upsertUser(event);
+    case "recordUserTest":
+      return await recordUserTest(event);
     case "getMiniProgramCode":
       return await getMiniProgramCode();
     case "createCollection":

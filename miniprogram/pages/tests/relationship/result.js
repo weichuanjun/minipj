@@ -18,6 +18,11 @@ Page({
     try {
       const data = JSON.parse(decodeURIComponent(query.data || '{}'))
       this.setData({ result: data })
+      // 仅在非回放场景保存本地测试记录（不上传内容）
+      const fromHistory = query && (query.fromHistory === '1' || query.fromHistory === 1)
+      if (!fromHistory) this.saveLocalRecord(data)
+      // 记录云端“做过的测试”但不包含结果
+      this.recordCloud('relationship')
       const range = data.range ? roundRange(data.range) : [0, 0]
       this.setData({ rangeRounded: range })
       const dimMap = data.dimScores || {}
@@ -34,6 +39,21 @@ Page({
     } catch (e) {
       console.error('parse result failed', e)
     }
+  },
+  saveLocalRecord(payload) {
+    try {
+      const arr = wx.getStorageSync('testResults') || []
+      arr.unshift({ testId: 'relationship', name: '关系风险评估', time: Date.now(), payload })
+      // 限制最大条数
+      const trimmed = arr.slice(0, 50)
+      wx.setStorageSync('testResults', trimmed)
+    } catch (_) {}
+  },
+  async recordCloud(testId) {
+    try {
+      const { callContainer } = require('../../../utils/container.js')
+      await callContainer('/api/user_tests/record', 'POST', { testId })
+    } catch (_) {}
   },
   toIndex() { wx.reLaunch({ url: '/pages/home/home' }) },
   toggleBasis() { this.setData({ showBasis: !this.data.showBasis }) },

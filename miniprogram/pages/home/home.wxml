@@ -1,4 +1,8 @@
 <view class="home">
+  <view class="login" wx:if="{{!loggedIn}}">
+    <text>登录后可查看历史记录</text>
+    <button size="mini" bindtap="login">微信一键登录</button>
+  </view>
   <view class="title">可用测试</view>
   <block wx:for="{{tests}}" wx:key="id">
     <view class="card" bindtap="enter" data-path="{{item.entryPath}}">
@@ -13,4 +17,3 @@
     <navigator url="/pages/feedback/feedback">匿名反馈</navigator>
   </view>
 </view>
-

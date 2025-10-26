@@ -1,0 +1,46 @@
+<view class="user">
+  <view class="card">
+    <view class="row" wx:if="{{!loggedIn}}">
+      <button type="primary" bindtap="login">微信一键登录</button>
+    </view>
+    <view class="profile" wx:elif="{{loggedIn}}">
+      <block wx:if="{{avatarUrl}}">
+        <image class="avatar" src="{{avatarUrl}}" mode="aspectFill"></image>
+      </block>
+      <block wx:else>
+        <open-data class="avatar" type="userAvatarUrl"></open-data>
+      </block>
+      <view class="info">
+        <view class="name">
+          <block wx:if="{{nickname}}">{{nickname}}</block>
+          <block wx:else><open-data type="userNickName"></open-data></block>
+        </view>
+        <view class="sub">已登录</view>
+      </view>
+    </view>
+    <view class="row" wx:if="{{loggedIn}}" style="margin-top:8px;">
+      <button size="mini" type="warn" bindtap="logout">退出登录</button>
+    </view>
+  </view>
+
+  <view class="card">
+    <view class="title">我的测试记录（本地保存）</view>
+    <block wx:if="{{results.length}}">
+      <block wx:for="{{results}}" wx:key="time">
+        <view class="item">
+          <view class="meta">
+            <view class="name">{{item.name}}</view>
+            <view class="date">{{item.timeText}}</view>
+          </view>
+          <button size="mini" bindtap="viewResult" data-index="{{index}}">查看</button>
+        </view>
+      </block>
+    </block>
+    <view class="empty" wx:else>暂无记录</view>
+  </view>
+
+  <view class="card">
+    <view class="title">云托管服务</view>
+    <button size="mini" bindtap="incCount">计数 +1</button>
+  </view>
+</view>
