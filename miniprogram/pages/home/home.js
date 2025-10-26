@@ -1,7 +1,7 @@
 const { tests } = require('../../data/tests.js')
 
 Page({
-  data: { tests: [], loggedIn: false, nickname: '', busy: false },
+  data: { tests: [], cards: [], loggedIn: false, nickname: '', busy: false },
   onShow() { this.checkLogin() },
   // 自定义 tabbar 选中态
   onTabItemTap() {},
@@ -9,7 +9,16 @@ Page({
   onShow(){ this.setTab(); this.checkLogin() },
   setTab(){ try { const tb = this.getTabBar && this.getTabBar(); if (tb && typeof tb.setData==='function') tb.setData({ selected: 0 }) } catch(_){} },
   onLoad() {
-    this.setData({ tests })
+    // 构造卡片（两列布局），首个使用图片封面
+    const cards = tests.map((t, i)=>({
+      id: t.id,
+      title: i===0 ? '分手风险评估' : t.name,
+      cover: i===0 ? '/pictures/1.PNG' : '/pictures/1.PNG',
+      entryPath: t.entryPath || `/pages/tests/${t.id}/index`
+    }))
+    // 加入占位测试：裁员风险评估（Coming soon）
+    cards.push({ id: 'layoff', title: '裁员风险评估', cover: '/pictures/2.png', entryPath: '', disabled: true })
+    this.setData({ tests, cards })
     this.checkLogin()
   },
   checkLogin(){
@@ -18,6 +27,8 @@ Page({
   },
   enter(e) {
     const path = e.currentTarget.dataset.path
+    const disabled = !!e.currentTarget.dataset.disabled
+    if (disabled) { wx.showToast({ title: '敬请期待', icon: 'none' }); return }
     if (path) wx.navigateTo({ url: path })
   },
   async login() {
