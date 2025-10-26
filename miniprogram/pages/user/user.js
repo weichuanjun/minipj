@@ -32,14 +32,15 @@ Page({
     const results = arr.map(r => ({ ...r, timeText: this.ts(r.time) }))
     this.setData({ results })
   },
-  async incCount(){
-    try {
-      const { callContainer } = require('../../utils/container.js')
-      const res = await callContainer('/api/count', 'POST', { action: 'inc' })
-      const val = (res && res.data && (res.data.count || res.data.data && res.data.data.count)) || 'ok'
-      wx.showToast({ title: `计数+1：${val}`, icon: 'none' })
-    } catch (e) {
-      wx.showToast({ title: e.message || '调用失败', icon: 'none' })
+  deleteResult(e){
+    const idx = Number(e.currentTarget.dataset.index)
+    const arr = wx.getStorageSync('testResults') || []
+    if (idx >= 0 && idx < arr.length) {
+      arr.splice(idx, 1)
+      wx.setStorageSync('testResults', arr)
+      const results = arr.map(r => ({ ...r, timeText: this.ts(r.time) }))
+      this.setData({ results })
+      wx.showToast({ title: '已删除', icon: 'none' })
     }
   },
   async login() {

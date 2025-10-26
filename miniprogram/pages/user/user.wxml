@@ -32,15 +32,13 @@
             <view class="name">{{item.name}}</view>
             <view class="date">{{item.timeText}}</view>
           </view>
-          <button size="mini" bindtap="viewResult" data-index="{{index}}">查看</button>
+          <view class="ops">
+            <button size="mini" class="btn" bindtap="viewResult" data-index="{{index}}">查看</button>
+            <button size="mini" class="btn danger" bindtap="deleteResult" data-index="{{index}}">删除</button>
+          </view>
         </view>
       </block>
     </block>
     <view class="empty" wx:else>暂无记录</view>
-  </view>
-
-  <view class="card">
-    <view class="title">云托管服务</view>
-    <button size="mini" bindtap="incCount">计数 +1</button>
   </view>
 </view>

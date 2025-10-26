@@ -48,8 +48,11 @@
   </view>
 
   <view class="actions">
-    <button bindtap="toIndex">返回首页</button>
-    <button type="primary" open-type="share">分享结果</button>
-    <navigator class="link" url="/pages/about/about">关于与声明</navigator>
+    <button bindtap="toIndex">首页</button>
+    <button type="primary" open-type="share">分享</button>
+    <button class="gen" bindtap="genImage">保存</button>
   </view>
+
+  <!-- 隐藏画布用于生成图片 -->
+  <canvas id="poster" type="2d" canvas-id="poster" style="position:absolute;left:-9999px;top:-9999px;width: 320px; height: 560px;"></canvas>
 </view>

@@ -6,7 +6,6 @@
     "pages/tests/relationship/quiz",
     "pages/tests/relationship/result",
     "pages/about/about",
-    "pages/feedback/feedback",
     "pages/logs/logs"
   ],
   "window": {

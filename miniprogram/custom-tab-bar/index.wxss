@@ -1,5 +1,5 @@
-.tabbar { position: fixed; left: 0; right: 0; bottom: 0; height: 60px; padding-bottom: constant(safe-area-inset-bottom); padding-bottom: env(safe-area-inset-bottom); background: #ffffff; display: flex; justify-content: space-around; align-items: center; box-shadow: 0 -4px 16px rgba(0,0,0,0.08); z-index: 99; border-top-left-radius: 10px; border-top-right-radius: 10px; }
+.tabbar { position: fixed; left: 0; right: 0; bottom: 0; height: 64px; padding-bottom: constant(safe-area-inset-bottom); padding-bottom: env(safe-area-inset-bottom); background: #ffffff; display: flex; justify-content: space-around; align-items: center; box-shadow: 0 -6px 20px rgba(255, 200, 200, 0.18); z-index: 99; border-top-left-radius: 16px; border-top-right-radius: 16px; border-top: 1px solid #F7DDE1; }
 .item { flex: 1; display: flex; align-items: center; justify-content: center; height: 100%; }
-.label { font-size: 15px; color: #666; }
-.active .label { color: #3a7afe; font-weight: 600; }
+.label { font-size: 15px; color: #6b6b6b; }
+.active .label { color: #85A9F0; font-weight: 700; }
 page { padding-bottom: 60px; }

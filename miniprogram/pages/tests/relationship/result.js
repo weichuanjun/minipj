@@ -14,6 +14,163 @@ Page({
     insights: [],
     empathy: '',
   },
+  async genImage() {
+    try {
+      wx.showLoading({ title: '生成中…', mask: true })
+      const query = wx.createSelectorQuery()
+      query.select('#poster').fields({ node: true, size: true })
+      query.exec(async res => {
+        const canvas = res && res[0] && res[0].node
+        if (!canvas) { wx.hideLoading(); wx.showToast({ title: '画布不可用', icon: 'none' }); return }
+        const dpr = wx.getSystemInfoSync().pixelRatio || 2
+        const W = 640, H = 960
+        canvas.width = W * dpr
+        canvas.height = H * dpr
+        const ctx = canvas.getContext('2d')
+        ctx.scale(dpr, dpr)
+        // background
+        const grd = ctx.createLinearGradient(0, 0, 0, H)
+        grd.addColorStop(0, '#FFF8F1'); grd.addColorStop(1, '#FFFFFF')
+        ctx.fillStyle = grd
+        ctx.fillRect(0, 0, W, H)
+        // card
+        const cardX=24, cardY=28, cardW=W-48, cardH=H-56
+        roundRect(ctx, cardX, cardY, cardW, cardH, 18, '#FFFFFF', '#F7DDE1')
+        // title
+        ctx.fillStyle = '#594c4c'
+        ctx.font = 'bold 22px sans-serif'
+        ctx.fillText('关系评估结果', cardX+18, cardY+40)
+        // BHI block
+        const { result } = this.data
+        const tier = this.data.riskTier || ''
+        ctx.fillStyle = '#4f5560'
+        ctx.font = 'bold 42px sans-serif'
+        ctx.fillText(`BHI ${result.BHI||0}`, cardX+18, cardY+100)
+        ctx.fillStyle = '#85A9F0'
+        ctx.font = 'bold 18px sans-serif'
+        ctx.fillText(`${tier}`, cardX+18, cardY+130)
+        // range
+        if (!result.hasSafety) {
+          const rr = this.data.rangeRounded || [0,0]
+          ctx.fillStyle = '#6b6b6b'
+          ctx.font = '14px sans-serif'
+          ctx.fillText(`预计剩余相处时长：${rr[0]}-${rr[1]} 月`, cardX+18, cardY+160)
+        } else {
+          ctx.fillStyle = '#c45a5a'
+          ctx.font = '14px sans-serif'
+          ctx.fillText('检测到安全风险，请优先保障安全', cardX+18, cardY+160)
+        }
+        // dims + radar
+        const dims = this.data.dimList || []
+        ctx.fillStyle = '#6f6f6f'
+        ctx.font = '14px sans-serif'
+        let y = cardY+200
+        ctx.fillText('维度分数：', cardX+18, y)
+        // radar at right
+        const radarSize = 150
+        drawRadar(ctx, cardX+cardW-radarSize-18, y-10, radarSize, dims)
+        y += 24
+        const leftCols = dims.slice(0, Math.min(6, dims.length))
+        leftCols.forEach(it=>{ ctx.fillText(`${it.k}：${it.v}`, cardX+28, y); y += 22 })
+
+        // insights and suggestions
+        y += 6
+        ctx.fillStyle = '#594c4c'
+        ctx.font = 'bold 16px sans-serif'
+        ctx.fillText('分析与建议', cardX+18, y)
+        y += 18
+        ctx.fillStyle = '#6f6f6f'
+        ctx.font = '14px sans-serif'
+        const insights = this.data.insights || []
+        const suggestions = this.data.suggestions || []
+        const lines = []
+        insights.forEach(t=> lines.push(`• ${t}`))
+        suggestions.forEach(t=> lines.push(`• ${t}`))
+        y = drawWrapped(ctx, lines.join('\n'), cardX+18, y+6, cardW-36, 20)
+        // footer
+        ctx.fillStyle = '#8a7f7f'
+        ctx.font = '12px sans-serif'
+        const t = new Date()
+        const pad=n=>String(n).padStart(2,'0')
+        const ts = `${t.getFullYear()}-${pad(t.getMonth()+1)}-${pad(t.getDate())} ${pad(t.getHours())}:${pad(t.getMinutes())}`
+        ctx.fillText(ts, cardX+18, H-32)
+
+        // export
+        wx.canvasToTempFilePath({
+          canvas,
+          x: 0, y: 0, width: W, height: H, destWidth: W*dpr, destHeight: H*dpr,
+          success: (r)=>{
+            const path = r.tempFilePath
+            // try save to album
+            wx.saveImageToPhotosAlbum({ filePath: path, success: ()=>{ wx.hideLoading(); wx.showToast({ title: '已保存到相册', icon: 'success' }) },
+              fail: ()=>{ wx.hideLoading(); wx.previewImage({ urls: [path] }) } })
+          },
+          fail: ()=>{ wx.hideLoading(); wx.showToast({ title: '生成失败', icon: 'none' }) }
+        })
+      })
+      function roundRect(ctx,x,y,w,h,r,fill,stroke){
+        ctx.beginPath()
+        ctx.moveTo(x+r,y)
+        ctx.arcTo(x+w,y,x+w,y+h,r)
+        ctx.arcTo(x+w,y+h,x,y+h,r)
+        ctx.arcTo(x,y+h,x,y,r)
+        ctx.arcTo(x,y,x+w,y,r)
+        ctx.closePath()
+        if (fill){ ctx.fillStyle=fill; ctx.fill() }
+        if (stroke){ ctx.strokeStyle=stroke; ctx.lineWidth=1; ctx.stroke() }
+      }
+      function drawRadar(ctx, x, y, size, dimList){
+        const N = dimList.length || 0
+        if (N === 0) return
+        const cx = x + size/2
+        const cy = y + size/2
+        const R = size/2 - 16
+        // grid
+        ctx.strokeStyle = '#F0E6E6'
+        ctx.lineWidth = 1
+        for(let r=0.3;r<=1.0;r+=0.2){
+          ctx.beginPath()
+          for(let i=0;i<N;i++){
+            const ang = -Math.PI/2 + (2*Math.PI*i)/N
+            const px = cx + R*r*Math.cos(ang)
+            const py = cy + R*r*Math.sin(ang)
+            if(i===0) ctx.moveTo(px,py); else ctx.lineTo(px,py)
+          }
+          ctx.closePath(); ctx.stroke()
+        }
+        // polygon
+        ctx.fillStyle = 'rgba(133,169,240,0.28)'
+        ctx.strokeStyle = '#85A9F0'
+        ctx.beginPath()
+        for(let i=0;i<N;i++){
+          const v = Math.max(0, Math.min(1, (dimList[i].v||0)/100))
+          const ang = -Math.PI/2 + (2*Math.PI*i)/N
+          const px = cx + R*v*Math.cos(ang)
+          const py = cy + R*v*Math.sin(ang)
+          if(i===0) ctx.moveTo(px,py); else ctx.lineTo(px,py)
+        }
+        ctx.closePath(); ctx.fill(); ctx.stroke()
+      }
+      function drawWrapped(ctx, text, x, y, maxWidth, lineHeight){
+        const words = text.split(/\n/)
+        let yy = y
+        for(const w of words){
+          let line = ''
+          for(const ch of w){
+            const test = line + ch
+            if (ctx.measureText(test).width > maxWidth){
+              ctx.fillText(line, x, yy); yy += lineHeight; line = ch
+            } else line = test
+          }
+          if (line){ ctx.fillText(line, x, yy); yy += lineHeight }
+        }
+        return yy
+      }
+    } catch (e) {
+      wx.hideLoading()
+      wx.showToast({ title: '生成失败', icon: 'none' })
+    }
+  },
   onLoad(query) {
     try {
       const data = JSON.parse(decodeURIComponent(query.data || '{}'))

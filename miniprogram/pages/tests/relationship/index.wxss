@@ -1,17 +1,17 @@
-/** Relationship landing styles **/
-.landing { padding: 20px; min-height: 100vh; background: linear-gradient(180deg, #f8fbff 0%, #f7f8fa 100%); }
-.hero { margin: 12px 0 20px; padding: 18px; border-radius: 16px; background: #fff; box-shadow: 0 8px 24px rgba(0,0,0,0.06); }
-.title { font-size: 20px; font-weight: bold; }
-.subtitle { color: #666; margin-top: 6px; }
-.form { margin-top: 16px; padding: 16px; background: #fff; border-radius: 16px; box-shadow: 0 8px 24px rgba(0,0,0,0.06); }
+/** Relationship landing styles (creamy pastel) **/
+.landing { padding: 20px; min-height: 100vh; background: linear-gradient(180deg, #FFF8F1 0%, #FFFFFF 100%); }
+.hero { margin: 12px 0 20px; padding: 18px; border-radius: 18px; background: #ffffff; box-shadow: 0 8px 26px rgba(255, 170, 170, 0.15); border: 1px solid #F7DDE1; }
+.title { font-size: 20px; font-weight: bold; color: #594c4c; }
+.subtitle { color: #8a7f7f; margin-top: 6px; }
+.form { margin-top: 16px; padding: 16px; background: #ffffff; border-radius: 18px; box-shadow: 0 8px 24px rgba(180,200,255,0.12); border: 1px solid #DCEBFF; }
 .form .row { display: flex; align-items: center; justify-content: space-between; padding: 10px 0; }
-.form .row.small { color: #888; font-size: 12px; }
-.label { color: #333; }
-.input { border: 1px solid #eee; padding: 10px 12px; border-radius: 12px; width: 180px; text-align: right; background: #fafafa; }
+.form .row.small { color: #8c8c8c; font-size: 12px; }
+.label { color: #6b6b6b; }
+.picker-box { width: 56px; text-align: center; border: 1px solid #f0e6e6; padding: 6px 8px; border-radius: 10px; background: #FFF4F4; color: #6b6b6b; }
 .actions { margin-top: 24px; display: flex; flex-direction: column; gap: 10px; }
-.actions button { height: 48px; border-radius: 999px; background: #3a7afe; color: #fff; width: 100%; display: flex; align-items: center; justify-content: center; text-align: center; font-size: 16px; font-weight: 600; padding: 0; }
-.links { color: #666; text-align: center; }
-.intro { margin-top: 16px; padding: 16px; background: #fff; border-radius: 16px; box-shadow: 0 8px 24px rgba(0,0,0,0.06); }
-.intro .h { font-weight: bold; margin-bottom: 6px; }
-.intro .p { color: #555; font-size: 13px; line-height: 1.6; }
+.actions button { height: 48px; border-radius: 999px; background: #85A9F0; color: #fff; width: 100%; display: flex; align-items: center; justify-content: center; text-align: center; font-size: 16px; font-weight: 600; padding: 0; }
+.links { color: #7a7a7a; text-align: center; }
+.intro { margin-top: 16px; padding: 16px; background: #ffffff; border-radius: 18px; box-shadow: 0 8px 24px rgba(255, 200, 200, 0.12); border: 1px solid #F7DDE1; }
+.intro .h { font-weight: bold; margin-bottom: 6px; color: #6b6b6b; }
+.intro .p { color: #6f6f6f; font-size: 13px; line-height: 1.6; }
 .br { height: 8px; }

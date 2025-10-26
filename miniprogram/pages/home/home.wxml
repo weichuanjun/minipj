@@ -13,7 +13,5 @@
 
   <view class="links">
     <navigator url="/pages/about/about">关于与声明</navigator>
-    <text> · </text>
-    <navigator url="/pages/feedback/feedback">匿名反馈</navigator>
   </view>
 </view>
