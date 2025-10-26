@@ -3,10 +3,12 @@
 .title { font-weight: bold; margin-bottom: 8px; }
 .bhi { font-size: 32px; color: #4f5560; margin: 6px 0; }
 .sub { color: #666; font-size: 12px; }
+.tiny { font-size: 12px; opacity: 0.9; }
 .warn { color: #b71c1c; }
 .strong { color: #111; font-weight: bold; }
 .dims { margin-top: 8px; }
 .dim { display: flex; justify-content: space-between; color: #555; font-size: 12px; margin: 2px 0; }
+.desc { color: #8a7f7f; font-size: 12px; margin: 2px 0 6px 0; }
 .sug { margin: 6px 0; color: #333; }
 .actions { display: flex; gap: 10px; }
 .basis-btn { margin-top: 6px; }

@@ -69,7 +69,7 @@ Page({
   },
   computeResult() {
     const weights = Q.meta.weights
-    const dims = { conflict: [], attachment: [], commitment: [], ritual: [], stress: [], values: [] }
+    const dims = { communication: [], attachment: [], commitment: [], rituals: [], stress: [], values: [] }
     const flags = []
     for (const q of this.data.questions) {
       const v = this.data.answers[q.id]

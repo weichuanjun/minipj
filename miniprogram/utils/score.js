@@ -28,14 +28,21 @@ function computeBHI(dimScores, weights, flags) {
 }
 
 function estimateMonthsLeft(BHI, monthsTogether = 0) {
-  const lambda0 = 0.06; // baseline monthly hazard (entertainment only)
-  let lambda = lambda0 * (1 + BHI / 50);
-  const adjust = 1 / (1 + Math.sqrt((monthsTogether || 0) / 24));
+  // Softer, less pessimistic hazard model (entertainment only)
+  // Baseline monthly hazard
+  const lambda0 = 0.03; // reduced baseline
+  // Nonlinear risk scaling, tame extremes
+  const risk = Math.pow((BHI || 0) / 100, 1.2); // 0..~1
+  let lambda = lambda0 * (1 + 2.0 * risk); // 0.03..~0.09
+  // Relationship age dampening（越久越稳定，衰减更显著）
+  const adjust = 1 / (1 + Math.sqrt((monthsTogether || 0) / 36));
   lambda *= adjust;
-  const expect = 1 / lambda; // months
-  const p50_low = Math.log(2 / 3) / (-lambda); // crude lower bound
-  const p50_hi = Math.log(2) / lambda; // crude upper bound
-  return { expectMonths: expect, range: [Math.max(1, p50_low), p50_hi] };
+  // Reference window: P25~P75 rather than P50 bounds
+  const p = (q) => -Math.log(1 - q) / lambda;
+  const p25 = p(0.25);
+  const p75 = p(0.75);
+  const expect = 1 / lambda;
+  return { expectMonths: expect, range: [Math.max(1, p25), p75] };
 }
 
 function roundRange(range) {

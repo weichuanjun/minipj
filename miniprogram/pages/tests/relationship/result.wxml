@@ -1,8 +1,9 @@
-<view class="result">
+<view id="captureRoot" class="result">
   <view class="card">
     <view class="title">分手风险指数（BHI）</view>
+    <view class="sub tiny">提示：各维度分数越高代表关系越稳定；BHI 越高代表分手风险越高。</view>
     <view class="bhi">{{result.BHI}} / 100（{{riskTier}}）</view>
-    <view class="sub" wx:if="{{!result.hasSafety}}">预计剩余相处时长：<text class="strong">{{rangeRounded[0]}} - {{rangeRounded[1]}}</text> 个月（仅供参考）</view>
+    <view class="sub" wx:if="{{!result.hasSafety}}">参考时间窗：<text class="strong">{{rangeRounded[0]}} - {{rangeRounded[1]}}</text> 个月（仅供参考）</view>
     <view class="sub warn" wx:elif="{{result.hasSafety}}">检测到安全风险，优先考虑安全与求助资源。暂不展示时间估计。</view>
     <button size="mini" class="basis-btn" bindtap="toggleBasis">{{showBasis? '收起' : '计算依据'}}</button>
     <view class="basis" wx:if="{{showBasis}}">
@@ -10,7 +11,7 @@
       <view>红旗乘子 M：{{basis.M}}</view>
       <view>已相处时长 t0（月）：{{basis.t0}}</view>
       <view>月风险 λ：{{basis.lambda}}</view>
-      <view>权重：冲突{{basis.weights.conflict}} 依恋{{basis.weights.attachment}} 承诺{{basis.weights.commitment}} 仪式{{basis.weights.ritual}} 压力{{basis.weights.stress}} 价值{{basis.weights.values}}</view>
+      <view>权重：沟通{{basis.weights.communication}} 依恋{{basis.weights.attachment}} 承诺{{basis.weights.commitment}} 仪式{{basis.weights.rituals}} 压力{{basis.weights.stress}} 价值{{basis.weights.values}}</view>
       <view>说明：{{basis.note}}</view>
       <view class="note">公式：
         BHI = clamp(M×(100−S), 0, 100)；
@@ -28,6 +29,7 @@
     <view class="dims">
       <block wx:for="{{dimList}}" wx:key="k">
         <view class="dim"><text class="k">{{item.k}}：</text><text class="v">{{item.v}}</text></view>
+        <view class="desc">{{item.desc}}</view>
       </block>
     </view>
   </view>
@@ -50,9 +52,11 @@
   <view class="actions">
     <button bindtap="toIndex">首页</button>
     <button type="primary" open-type="share">分享</button>
-    <button class="gen" bindtap="genImage">保存</button>
+    <button class="gen" bindtap="genImageNew">保存</button>
   </view>
 
   <!-- 隐藏画布用于生成图片 -->
   <canvas id="poster" type="2d" canvas-id="poster" style="position:absolute;left:-9999px;top:-9999px;width: 320px; height: 560px;"></canvas>
+  <!-- wxml-to-canvas 组件（通过 npm 安装后生效） -->
+  <wxml-to-canvas class="widget" id="w2c" style="width:0;height:0;position:absolute;left:-9999px;top:-9999px"></wxml-to-canvas>
 </view>
