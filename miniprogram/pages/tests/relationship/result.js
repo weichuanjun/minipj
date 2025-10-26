@@ -1,5 +1,5 @@
-const { roundRange } = require('../../utils/score.js')
-const Q = require('../../data/questions.js')
+const { roundRange } = require('../../../utils/score.js')
+const Q = require('../../../data/questions.js')
 
 Page({
   data: {
@@ -35,7 +35,7 @@ Page({
       console.error('parse result failed', e)
     }
   },
-  toIndex() { wx.reLaunch({ url: '/pages/index/index' }) },
+  toIndex() { wx.reLaunch({ url: '/pages/home/home' }) },
   toggleBasis() { this.setData({ showBasis: !this.data.showBasis }) },
 
   classifyRisk() {
@@ -200,6 +200,6 @@ Page({
 
   onShareAppMessage() {
     const t = `BHI ${this.data.result.BHI}/100`
-    return { title: `关系评估：${t}`, path: '/pages/index/index' }
+    return { title: `关系评估：${t}`, path: '/pages/home/home' }
   }
 })

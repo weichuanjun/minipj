@@ -1,9 +1,5 @@
-const Q = require('../../data/questions.js')
-const {
-  scoreLikert,
-  computeBHI,
-  estimateMonthsLeft
-} = require('../../utils/score.js')
+const Q = require('../../../data/questions.js')
+const { scoreLikert, computeBHI, estimateMonthsLeft } = require('../../../utils/score.js')
 
 Page({
   data: {
@@ -59,7 +55,7 @@ Page({
     }
     const res = this.computeResult()
     const data = encodeURIComponent(JSON.stringify(res))
-    wx.navigateTo({ url: `/pages/result/result?data=${data}` })
+    wx.navigateTo({ url: `/pages/tests/relationship/result?data=${data}` })
   },
   updateProgress(){
     const pct = Math.round(((this.data.current + 1) / this.data.questions.length) * 100)

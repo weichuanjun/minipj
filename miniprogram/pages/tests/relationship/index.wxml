@@ -1,4 +1,4 @@
-<!--index.wxml-->
+<!-- relationship index -->
 <view class="landing">
   <view class="hero">
     <view class="title">关系稳定度分手风险评估</view>

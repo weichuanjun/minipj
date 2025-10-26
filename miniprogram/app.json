@@ -1,15 +1,16 @@
 {
   "pages": [
-    "pages/index/index",
-    "pages/quiz/quiz",
-    "pages/result/result",
+    "pages/home/home",
+    "pages/tests/relationship/index",
+    "pages/tests/relationship/quiz",
+    "pages/tests/relationship/result",
     "pages/about/about",
     "pages/feedback/feedback",
     "pages/logs/logs"
   ],
   "window": {
     "navigationBarTextStyle": "black",
-    "navigationBarTitleText": "关系风险评估",
+  "navigationBarTitleText": "测试中心",
     "navigationBarBackgroundColor": "#ffffff",
     "backgroundColor": "#f7f8fa",
     "backgroundTextStyle": "light"

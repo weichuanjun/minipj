@@ -1,0 +1,16 @@
+<view class="home">
+  <view class="title">可用测试</view>
+  <block wx:for="{{tests}}" wx:key="id">
+    <view class="card" bindtap="enter" data-path="{{item.entryPath}}">
+      <view class="name">{{item.name}}</view>
+      <view class="desc">{{item.desc}}</view>
+    </view>
+  </block>
+
+  <view class="links">
+    <navigator url="/pages/about/about">关于与声明</navigator>
+    <text> · </text>
+    <navigator url="/pages/feedback/feedback">匿名反馈</navigator>
+  </view>
+</view>
+

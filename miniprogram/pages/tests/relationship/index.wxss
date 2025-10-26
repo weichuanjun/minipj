@@ -1,4 +1,4 @@
-/** Landing styles **/
+/** Relationship landing styles **/
 .landing { padding: 20px; min-height: 100vh; background: linear-gradient(180deg, #f8fbff 0%, #f7f8fa 100%); }
 .hero { margin: 12px 0 20px; padding: 18px; border-radius: 16px; background: #fff; box-shadow: 0 8px 24px rgba(0,0,0,0.06); }
 .title { font-size: 20px; font-weight: bold; }

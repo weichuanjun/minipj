@@ -1,4 +1,4 @@
-// index.js (landing)
+// relationship test landing
 Page({
   data: {
     monthsTogether: wx.getStorageSync('monthsTogether') || '',
@@ -8,7 +8,5 @@ Page({
     this.setData({ monthsTogether: v })
     wx.setStorageSync('monthsTogether', String(v || ''))
   },
-  startQuiz() {
-    wx.navigateTo({ url: '/pages/quiz/quiz' })
-  }
+  startQuiz() { wx.navigateTo({ url: '/pages/tests/relationship/quiz' }) }
 })
