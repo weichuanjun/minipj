@@ -1,0 +1,30 @@
+module.exports = {
+  meta: {
+    version: '0.1.0',
+    weights: {
+      conflict: 25,
+      attachment: 15,
+      commitment: 20,
+      ritual: 10,
+      stress: 10,
+      values: 10,
+      redflags: 10,
+    },
+  },
+  questions: [
+    { id: 'conflict_1', dim: 'conflict', type: 'likert5', reverse: true,  text: '最近一个月我们发生冷战超过一天的次数？', anchorL: '从不', anchorR: '≥6次' },
+    { id: 'repair_1',   dim: 'conflict', type: 'likert5', reverse: false, text: '我表达不满后，24小时内通常能达成修复。', anchorL: '从不', anchorR: '总是' },
+    { id: 'attach_1',   dim: 'attachment', type: 'likert5', reverse: true,  text: '当对方需要空间时我会立刻感到被抛弃。', anchorL: '非常不同意', anchorR: '非常同意' },
+    { id: 'rusbult_sat',dim: 'commitment', type: 'likert5', reverse: false, text: '我对这段关系总体满意。', anchorL: '很不满意', anchorR: '很满意' },
+    { id: 'rusbult_alt',dim: 'commitment', type: 'likert5', reverse: true,  text: '我很容易找到更好的替代对象。', anchorL: '非常不同意', anchorR: '非常同意' },
+    { id: 'leave_intent',dim:'commitment', type: 'likert5', reverse: true,  text: '我有离开这段关系的念头。', anchorL: '从不', anchorR: '经常' },
+    { id: 'investment', dim: 'commitment', type: 'likert5', reverse: false, text: '我为这段关系做出了独特投资（财务/社交/家庭）。', anchorL: '无', anchorR: '极高' },
+    { id: 'ritual_1',   dim: 'ritual',     type: 'likert5', reverse: false, text: '每周≥2次无手机的高质量对话≥20分钟。', anchorL: '从不', anchorR: '总是' },
+    { id: 'stress_1',   dim: 'stress',     type: 'likert5', reverse: true,  text: '我把外部压力迁怒到伴侣的频率。', anchorL: '从不', anchorR: '非常频繁' },
+    { id: 'value_1',    dim: 'values',     type: 'likert5', reverse: true,  text: '未来三年在城市/子女/金钱管理三项中意见冲突程度。', anchorL: '低', anchorR: '极高' },
+    { id: 'flag_contempt',  dim: 'redflags', type: 'yn', severity: 'mid',  text: '是否每周至少一次出现轻蔑（嘲讽/翻白眼/讥笑）？' },
+    { id: 'flag_silent',    dim: 'redflags', type: 'yn', severity: 'mid',  text: '是否故意冷处理≥72小时？' },
+    { id: 'flag_infidelity',dim: 'redflags', type: 'yn', severity: 'mid',  text: '是否存在明确不忠或隐瞒重大事项？' },
+    { id: 'flag_safety',    dim: 'redflags', type: 'yn', severity: 'high', text: '是否存在控制/威胁/暴力等安全风险？' },
+  ],
+}

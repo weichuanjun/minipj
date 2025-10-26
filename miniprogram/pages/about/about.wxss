@@ -1,0 +1,5 @@
+.about { padding: 16px; }
+.section { margin-bottom: 12px; }
+.h { font-weight: bold; margin-bottom: 4px; }
+.p { color: #555; font-size: 14px; line-height: 1.6; }
+

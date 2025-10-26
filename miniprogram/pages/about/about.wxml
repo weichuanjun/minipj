@@ -1,0 +1,19 @@
+<view class="about">
+  <view class="section">
+    <view class="h">定位</view>
+    <view class="p">本工具不是“算命”，而是基于关系科学文献的娱乐化风险评估与改善建议，仅供参考。</view>
+  </view>
+  <view class="section">
+    <view class="h">理论基石</view>
+    <view class="p">冲突/沟通、依恋/情绪、满意度/承诺、互动仪式、压力外溢、价值/规划、风险红旗等维度的轻量量表。</view>
+  </view>
+  <view class="section">
+    <view class="h">免责声明</view>
+    <view class="p">结果不构成专业心理建议，也不替代心理咨询。若涉及控制、威胁、暴力等红线问题，请优先联系当地求助机构或警方，确保人身安全。</view>
+  </view>
+  <view class="section">
+    <view class="h">隐私</view>
+    <view class="p">数据仅在本地用于计算，若后续提供匿名反馈，将在获得同意后再收集。</view>
+  </view>
+</view>
+

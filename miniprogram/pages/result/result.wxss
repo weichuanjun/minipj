@@ -1,0 +1,18 @@
+.result { padding: 16px; min-height: 100vh; background: linear-gradient(180deg, #f8fbff 0%, #f7f8fa 100%); }
+.card { background: #fff; border-radius: 16px; padding: 14px; margin-bottom: 14px; box-shadow: 0 8px 24px rgba(0,0,0,0.06); }
+.title { font-weight: bold; margin-bottom: 8px; }
+.bhi { font-size: 32px; color: #333; margin: 6px 0; }
+.sub { color: #666; font-size: 12px; }
+.warn { color: #b71c1c; }
+.strong { color: #111; font-weight: bold; }
+.dims { margin-top: 8px; }
+.dim { display: flex; justify-content: space-between; color: #555; font-size: 12px; margin: 2px 0; }
+.sug { margin: 6px 0; color: #333; }
+.actions { display: flex; gap: 10px; }
+.basis-btn { margin-top: 6px; }
+.basis { margin-top: 6px; color: #555; font-size: 12px; line-height: 1.6; }
+.note { color: #999; margin-top: 4px; }
+.link { color: #666; align-self: center; }
+.radar-wrap { width: 100%; }
+.p { color: #555; font-size: 13px; line-height: 1.6; margin-bottom: 8px; }
+.ins { color: #333; font-size: 13px; line-height: 1.6; margin: 4px 0; }

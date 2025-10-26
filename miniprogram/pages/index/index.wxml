@@ -1,0 +1,36 @@
+<!--index.wxml-->
+<view class="landing">
+  <view class="hero">
+    <view class="title">关系稳定度分手风险评估</view>
+    <view class="subtitle">基于关系科学的轻量量表（1–2分钟）</view>
+  </view>
+
+  <view class="form">
+    <view class="row">
+      <text class="label">已相处</text>
+      <input class="input" type="number" placeholder="可选，影响时间估计" value="{{monthsTogether}}" bindinput="onMonths" confirm-type="go" bindconfirm="startQuiz" />
+      <text class="label">月</text>
+    </view>
+    <view class="row small">
+      <text>说明：时间越久，短期风险会轻微下调。</text>
+    </view>
+  </view>
+
+  <view class="actions">
+    <button type="primary" bindtap="startQuiz">开始评估</button>
+    <view class="links">
+      <navigator url="/pages/about/about">关于与声明</navigator>
+      <text> · </text>
+      <navigator url="/pages/feedback/feedback">匿名反馈</navigator>
+    </view>
+  </view>
+
+  <view class="intro">
+    <view class="h">定位 & 伦理边界</view>
+    <view class="p">不是“算命”，而是基于关系科学的风险评估与改善建议（娱乐+科普）。结果仅供参考，不替代心理咨询；若涉及控制/暴力等红线，请优先安全。</view>
+    <view class="br"></view>
+    <view class="br"></view>
+    <view class="h">理论维度（权重）</view>
+    <view class="p">冲突/沟通(25)、依恋/情绪(15)、满意度/承诺(20)、互动仪式(10)、压力外溢(10)、价值/规划(10)、红旗(10)。</view>
+  </view>
+</view>

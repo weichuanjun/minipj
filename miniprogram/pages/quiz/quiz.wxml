@@ -1,0 +1,37 @@
+<view class="quiz">
+  <view class="top">
+    <view class="progress">第 {{current+1}} 题 / 共 {{questions.length}} 题</view>
+    <view class="bar"><view class="fill" style="width: {{pct}}%"></view></view>
+  </view>
+  <view class="card qcard">
+    <view class="qtext">{{questions[current].text}}</view>
+    <view class="anchors" wx:if="{{questions[current].type==='likert5'}}">
+      <text class="left">{{questions[current].anchorL}}</text>
+      <text class="right">{{questions[current].anchorR}}</text>
+    </view>
+
+  <view class="safety" wx:if="{{questions[current].id==='flag_safety'}}">如涉及控制/威胁/暴力，请优先确保安全并及时求助。</view>
+
+  <view wx:if="{{questions[current].type==='likert5'}}" class="options">
+    <view class="likert">
+      <button size="mini" class="pill-btn {{answers[questions[current].id]===1? 'active':''}}" bindtap="selectLikert" data-v="1">1</button>
+      <button size="mini" class="pill-btn {{answers[questions[current].id]===2? 'active':''}}" bindtap="selectLikert" data-v="2">2</button>
+      <button size="mini" class="pill-btn {{answers[questions[current].id]===3? 'active':''}}" bindtap="selectLikert" data-v="3">3</button>
+      <button size="mini" class="pill-btn {{answers[questions[current].id]===4? 'active':''}}" bindtap="selectLikert" data-v="4">4</button>
+      <button size="mini" class="pill-btn {{answers[questions[current].id]===5? 'active':''}}" bindtap="selectLikert" data-v="5">5</button>
+    </view>
+  </view>
+
+  <view wx:elif="{{questions[current].type==='yn'}}" class="options yn">
+    <button size="mini" class="pill-btn {{answers[questions[current].id]===false? 'active':''}}" bindtap="selectYN" data-v="false">否</button>
+    <button size="mini" class="pill-btn {{answers[questions[current].id]===true? 'active':''}}" bindtap="selectYN" data-v="true">是</button>
+  </view>
+
+  <view class="actions">
+    <button size="mini" bindtap="prev" wx:if="{{current>0}}">上一题</button>
+    <button type="primary" bindtap="next" disabled="{{!answered}}">{{current===questions.length-1? '完成' : '下一题'}}</button>
+  </view>
+
+  <view class="tip" wx:if="{{flagSafetyHint}}">检测到安全风险问题，请优先保障人身安全。</view>
+  </view>
+</view>

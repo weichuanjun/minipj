@@ -1,0 +1,17 @@
+/** Landing styles **/
+.landing { padding: 20px; min-height: 100vh; background: linear-gradient(180deg, #f8fbff 0%, #f7f8fa 100%); }
+.hero { margin: 12px 0 20px; padding: 18px; border-radius: 16px; background: #fff; box-shadow: 0 8px 24px rgba(0,0,0,0.06); }
+.title { font-size: 20px; font-weight: bold; }
+.subtitle { color: #666; margin-top: 6px; }
+.form { margin-top: 16px; padding: 16px; background: #fff; border-radius: 16px; box-shadow: 0 8px 24px rgba(0,0,0,0.06); }
+.form .row { display: flex; align-items: center; justify-content: space-between; padding: 10px 0; }
+.form .row.small { color: #888; font-size: 12px; }
+.label { color: #333; }
+.input { border: 1px solid #eee; padding: 10px 12px; border-radius: 12px; width: 180px; text-align: right; background: #fafafa; }
+.actions { margin-top: 24px; display: flex; flex-direction: column; gap: 10px; }
+.actions button { height: 48px; border-radius: 999px; background: #3a7afe; color: #fff; width: 100%; display: flex; align-items: center; justify-content: center; text-align: center; font-size: 16px; font-weight: 600; padding: 0; }
+.links { color: #666; text-align: center; }
+.intro { margin-top: 16px; padding: 16px; background: #fff; border-radius: 16px; box-shadow: 0 8px 24px rgba(0,0,0,0.06); }
+.intro .h { font-weight: bold; margin-bottom: 6px; }
+.intro .p { color: #555; font-size: 13px; line-height: 1.6; }
+.br { height: 8px; }

@@ -1,0 +1,21 @@
+.quiz { padding: 16px; min-height: 100vh; background: linear-gradient(180deg, #f8fbff 0%, #f7f8fa 100%); }
+.top { margin-bottom: 12px; }
+.progress { color: #888; margin-bottom: 6px; }
+.bar { height: 6px; background: #eef1f7; border-radius: 999px; overflow: hidden; }
+.fill { height: 100%; background: #3a7afe; width: 0; }
+.qcard { padding: 16px; }
+.qtext { font-size: 16px; line-height: 1.6; margin-bottom: 12px; }
+.anchors { display: flex; justify-content: space-between; color: #999; font-size: 12px; margin-bottom: 8px; }
+.anchors .left { text-align: left; }
+.anchors .right { text-align: right; }
+.options { margin: 12px 0; }
+.likert { display: flex; justify-content: space-between; gap: 8px; }
+.opt { flex: 1; }
+.pill { text-align: center; border: 1px solid #e6e8ee; padding: 10px 0; border-radius: 10px; color: #333; background: #fff; }
+.pill.active { background: #3a7afe; color: #fff; border-color: transparent; }
+.yn { display: flex; gap: 12px; }
+.pill-btn { flex: 1; border-radius: 999px; background: #fff; color: #333; border: 1px solid #e6e8ee; }
+.pill-btn.active { background: #3a7afe; color: #fff; border-color: transparent; }
+.actions { display: flex; gap: 10px; margin-top: 16px; }
+.tip { color: #b71c1c; margin-top: 16px; font-size: 12px; }
+.safety { color: #b71c1c; font-size: 12px; margin-top: 6px; }

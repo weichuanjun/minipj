@@ -1,0 +1,18 @@
+/**app.wxss**/
+page { background: #f7f8fa; color: #111; }
+
+/* Global container fallback */
+.container {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  padding: 200rpx 0;
+  box-sizing: border-box;
+}
+
+/* Theme */
+.card { background: #fff; border-radius: 16px; box-shadow: 0 8px 24px rgba(0,0,0,0.06); }
+.btn-primary { background: #3a7afe; color: #fff; border-radius: 999px; }
+.muted { color: #666; }

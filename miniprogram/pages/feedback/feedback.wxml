@@ -1,0 +1,12 @@
+<view class="feedback">
+  <view class="p">我们希望据此持续优化模型与建议。感谢你的匿名反馈（可选填写）。</view>
+  <textarea class="ta" placeholder="写下你的建议、是否分手的后续（30/60/90天）或是否执行过建议等…" value="{{text}}" bindinput="onInput" />
+  <button type="primary" bindtap="save">提交（本地保存）</button>
+  <view class="list" wx:if="{{items.length}}">
+    <view class="h">历史反馈（仅本机可见）</view>
+    <block wx:for="{{items}}" wx:key="id">
+      <view class="item">{{item.ts}}：{{item.text}}</view>
+    </block>
+  </view>
+</view>
+
