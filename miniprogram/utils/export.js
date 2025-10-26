@@ -211,6 +211,20 @@ function drawRadar(ctx, x, y, size, dimList){
     if(i===0) ctx.moveTo(px,py); else ctx.lineTo(px,py)
   }
   ctx.closePath(); ctx.fill(); ctx.stroke()
+  // labels: keep full text, shift left a bit to keep inside card
+  ctx.save()
+  ctx.fillStyle = '#666'
+  ctx.font = '12px sans-serif'
+  ctx.textAlign = 'left'
+  ctx.textBaseline = 'middle'
+  for (let i=0;i<N;i++){
+    const label = String(dimList[i].k || '')
+    const ang = -Math.PI/2 + (2*Math.PI*i)/N
+    const rx = cx + (R-10)*Math.cos(ang) - 16 // shift left so right-edge labels不出界
+    const ry = cy + (R-10)*Math.sin(ang)
+    ctx.fillText(label, rx, ry)
+  }
+  ctx.restore()
 }
 
 async function drawFullResultPoster(canvas, data, opts = {}){
@@ -226,7 +240,7 @@ async function drawFullResultPoster(canvas, data, opts = {}){
   const ctx = canvas.getContext('2d')
 
   // Build section strings
-  const dimTextStr = (data.dimList||[]).map(it=>`${it.k}：${it.v}分  ${it.desc||''}`).join('\n')
+  const dimTextStr = (data.dimList||[]).map(it=>`${it.k}：${it.v}分`).join('\n')
   const riskText = data.result?.hasSafety ? '检测到安全风险，请优先保障安全' : `参考时间窗：${(data.rangeRounded||[0,0])[0]}-${(data.rangeRounded||[0,0])[1]} 月`
   const analysisStr = [
     ...(data.empathy?[`${data.empathy}`]:[]),
@@ -237,7 +251,8 @@ async function drawFullResultPoster(canvas, data, opts = {}){
   // Measure heights precisely
   const hdrH28 = 28, hdrH22 = 22, tipH = 14, bhiH = 56, tierH = 22, subH = 18
   ctx.font = '18px sans-serif'
-  const dimTextH = measureWrapped(ctx, dimTextStr, cardW - 260 - 48, 28)
+  const radarOffsetX = 24
+  const dimTextH = measureWrapped(ctx, dimTextStr, cardW - 260 - 48 - radarOffsetX, 28)
   const dimsContentH = hdrH22 + 12 + Math.max(dimTextH, 260)
   const analysisBodyH = measureWrapped(ctx, analysisStr, cardW-36, 28)
   const suggestBodyH = measureWrapped(ctx, suggestStr, cardW-36, 28)
@@ -245,9 +260,12 @@ async function drawFullResultPoster(canvas, data, opts = {}){
   const card2H = cardPad + dimsContentH + cardPad
   const card3H = cardPad + hdrH22 + 12 + analysisBodyH + cardPad
   const card4H = cardPad + hdrH22 + 12 + suggestBodyH + cardPad
-  const promoH = 56
-  const totalH = pad + card1H + 12 + card2H + 12 + card3H + 12 + card4H + promoH + pad
-  const H = Math.max(1280, Math.ceil(totalH/10)*10)
+  const promoBarH = 44
+  const promoGap = 20
+  const promoH = promoBarH + promoGap
+  const sectionGap = 20
+  const totalH = pad + card1H + sectionGap + card2H + sectionGap + card3H + sectionGap + card4H + promoH + pad
+  const H = Math.ceil(totalH/10)*10
 
   // Init canvas
   canvas.width = W * dpr
@@ -274,24 +292,27 @@ async function drawFullResultPoster(canvas, data, opts = {}){
   ctx.fillStyle = data.result?.hasSafety ? theme.warn : theme.text; ctx.font = '18px sans-serif'
   ctx.fillText(riskText, cardX+cardPad, cy)
   cy += subH
-  y += card1H + 12
+  y += card1H + sectionGap
 
   // Card 2: Dims + Radar
   roundRect(ctx, cardX, y, cardW, card2H, 18, theme.cardFill, theme.cardStroke)
   cy = y + cardPad
   ctx.fillStyle = theme.title; ctx.font = 'bold 22px sans-serif'; ctx.fillText('维度与雷达图', cardX+cardPad, cy)
   cy += hdrH22 + 12
-  // Left text
+  // Content area
+  const contentTop = cy
+  const contentH = Math.max(dimTextH, 260)
+  // Left text (vertically centered)
   ctx.fillStyle = theme.text; ctx.font = '18px sans-serif'
   const tx = cardX + cardPad
-  const textW = cardW - 260 - 48
-  let ty = cy
-  ty = drawWrapped(ctx, dimTextStr, tx, ty, textW, 28)
-  // Radar on right
-  const rx = cardX + cardW - 260 - cardPad
-  const ry = y + cardPad + hdrH22 + 12
+  const textW = cardW - 260 - 48 - radarOffsetX
+  let ty = contentTop + (contentH - dimTextH)/2
+  drawWrapped(ctx, dimTextStr, tx, ty, textW, 28)
+  // Radar on right (vertically centered)
+  const rx = cardX + cardW - 260 - cardPad - radarOffsetX
+  const ry = contentTop + (contentH - 260)/2
   drawRadar(ctx, rx, ry, 260, data.dimList || [])
-  y += card2H + 12
+  y += card2H + sectionGap
 
   // Card 3: 分项分析与风险点
   roundRect(ctx, cardX, y, cardW, card3H, 18, theme.cardFill, theme.cardStroke)
@@ -300,7 +321,7 @@ async function drawFullResultPoster(canvas, data, opts = {}){
   cy += hdrH22 + 12
   ctx.fillStyle = theme.text; ctx.font = '18px sans-serif'
   drawWrapped(ctx, analysisStr, cardX+cardPad, cy, cardW-36, 28)
-  y += card3H + 12
+  y += card3H + sectionGap
 
   // Card 4: 个性化建议
   roundRect(ctx, cardX, y, cardW, card4H, 18, theme.cardFill, theme.cardStroke)
@@ -311,13 +332,14 @@ async function drawFullResultPoster(canvas, data, opts = {}){
   drawWrapped(ctx, suggestStr, cardX+cardPad, cy, cardW-36, 28)
   y += card4H
 
-  // Footer promo
+  // Footer promo (move up to keep fully visible)
   const promo = '更多有趣内容更新，欢迎关注公众号[好好测测酱]'
+  const promoY = H - pad - promoBarH - promoGap
   ctx.fillStyle = theme.accent
-  roundRect(ctx, cardX+12, H- pad - 56, cardW-24, 44, 12, theme.accent)
+  roundRect(ctx, cardX+12, promoY, cardW-24, promoBarH, 12, theme.accent)
   ctx.fillStyle = '#fff'; ctx.font = 'bold 20px sans-serif'
   const tw = ctx.measureText(promo).width
-  ctx.fillText(promo, cardX + (cardW - tw)/2, H - pad - 56 + 30)
+  ctx.fillText(promo, cardX + (cardW - tw)/2, promoY + (promoBarH - 20)/2)
 }
 
 module.exports = { drawResultPoster, drawFullResultPoster }
