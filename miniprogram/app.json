@@ -1,11 +1,11 @@
 {
   "pages": [
     "pages/home/home",
+    "pages/user/user",
     "pages/tests/relationship/index",
     "pages/tests/relationship/quiz",
     "pages/tests/relationship/result",
     "pages/about/about",
-    "pages/feedback/feedback",
     "pages/logs/logs"
   ],
   "window": {
@@ -19,4 +19,15 @@
   "componentFramework": "glass-easel",
   "sitemapLocation": "sitemap.json",
   "lazyCodeLoading": "requiredComponents"
+  ,
+  "tabBar": {
+    "custom": true,
+    "color": "#666",
+    "selectedColor": "#3a7afe",
+    "borderStyle": "black",
+    "list": [
+      { "pagePath": "pages/home/home", "text": "主页" },
+      { "pagePath": "pages/user/user", "text": "我的" }
+    ]
+  }
 }

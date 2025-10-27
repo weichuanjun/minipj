@@ -1,6 +1,14 @@
 // app.js
 App({
   onLaunch() {
+    if (wx.cloud) {
+      try {
+        const cfg = require('./config.js')
+        wx.cloud.init({ traceUser: true, env: cfg.envId })
+      } catch (_) {
+        wx.cloud.init({ traceUser: true })
+      }
+    }
     // 展示本地存储能力
     const logs = wx.getStorageSync('logs') || []
     logs.unshift(Date.now())

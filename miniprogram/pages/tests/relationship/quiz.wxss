@@ -1,8 +1,8 @@
-.quiz { padding: 16px; min-height: 100vh; background: linear-gradient(180deg, #f8fbff 0%, #f7f8fa 100%); }
+.quiz { padding: 16px; min-height: 100vh; background: linear-gradient(180deg, #FFF8F1 0%, #FFFFFF 100%); }
 .top { margin-bottom: 12px; }
 .progress { color: #888; margin-bottom: 6px; }
 .bar { height: 6px; background: #eef1f7; border-radius: 999px; overflow: hidden; }
-.fill { height: 100%; background: #3a7afe; width: 0; }
+.fill { height: 100%; background: #85A9F0; width: 0; }
 .qcard { padding: 16px; }
 .qtext { font-size: 16px; line-height: 1.6; margin-bottom: 12px; }
 .anchors { display: flex; justify-content: space-between; color: #999; font-size: 12px; margin-bottom: 8px; }
@@ -15,7 +15,7 @@
 .pill.active { background: #3a7afe; color: #fff; border-color: transparent; }
 .yn { display: flex; gap: 12px; }
 .pill-btn { flex: 1; border-radius: 999px; background: #fff; color: #333; border: 1px solid #e6e8ee; }
-.pill-btn.active { background: #3a7afe; color: #fff; border-color: transparent; }
+.pill-btn.active { background: #85A9F0; color: #fff; border-color: transparent; }
 .actions { display: flex; gap: 10px; margin-top: 16px; }
 .tip { color: #b71c1c; margin-top: 16px; font-size: 12px; }
-.safety { color: #b71c1c; font-size: 12px; margin-top: 6px; }
+.safety { color: #c45a5a; font-size: 12px; margin-top: 6px; }

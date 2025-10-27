@@ -1,0 +1,8 @@
+<view class="tabbar">
+  <view class="item {{selected===0? 'active':''}}" bindtap="switchTo" data-idx="0" data-path="/pages/home/home">
+    <text class="label">主页</text>
+  </view>
+  <view class="item {{selected===1? 'active':''}}" bindtap="switchTo" data-idx="1" data-path="/pages/user/user">
+    <text class="label">我的</text>
+  </view>
+</view>

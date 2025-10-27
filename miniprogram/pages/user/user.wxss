@@ -1,0 +1,16 @@
+.user { padding: 16px; background: linear-gradient(180deg, #FFF8F1 0%, #FFFFFF 100%); min-height: 100vh; }
+.card { background: #ffffff; border-radius: 16px; padding: 14px; margin-bottom: 12px; box-shadow: 0 8px 24px rgba(180,200,255,0.12); border: 1px solid #DCEBFF; }
+.profile { display: flex; align-items: center; gap: 12px; }
+.avatar { width: 56px; height: 56px; border-radius: 50%; background: #eee; }
+.info { display: flex; flex-direction: column; }
+.name { font-weight: 600; }
+.sub { color: #888; font-size: 12px; }
+.title { font-weight: 600; margin-bottom: 8px; }
+.item { display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-bottom: 1px solid #f0f2f5; }
+.item:last-child { border-bottom: none; }
+.meta .name { font-size: 14px; color: #333; }
+.meta .date { font-size: 12px; color: #888; }
+.ops { display: flex; gap: 8px; }
+.btn { border-radius: 999px; padding: 0 10px; }
+.btn.danger { color: #fff; background: #e07979; border: none; }
+.empty { color: #8a7f7f; text-align: center; padding: 12px 0; }

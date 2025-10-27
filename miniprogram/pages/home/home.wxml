@@ -1,16 +1,26 @@
 <view class="home">
-  <view class="title">可用测试</view>
-  <block wx:for="{{tests}}" wx:key="id">
-    <view class="card" bindtap="enter" data-path="{{item.entryPath}}">
-      <view class="name">{{item.name}}</view>
-      <view class="desc">{{item.desc}}</view>
-    </view>
-  </block>
+  <view class="topbar">
+    <view class="headline">世事无常，你需要好好测测酱</view>
+    <!-- <navigator class="about" url="/pages/about/about" hover-class="none">免责说明</navigator> -->
+  </view>
 
-  <view class="links">
-    <navigator url="/pages/about/about">关于与声明</navigator>
-    <text> · </text>
-    <navigator url="/pages/feedback/feedback">匿名反馈</navigator>
+  <view class="login" wx:if="{{!loggedIn}}">
+    <text>登录后可在“我的”中查看历史记录</text>
+    <button size="mini" bindtap="login">微信一键登录</button>
+  </view>
+
+  <view class="grid">
+    <block wx:for="{{cards}}" wx:key="id">
+      <view class="card" bindtap="enter" data-path="{{item.entryPath}}" data-disabled="{{item.disabled}}">
+        <view class="thumb">
+          <image class="img" src="{{item.cover}}" mode="aspectFill"></image>
+          <view class="overlay"></view>
+          <view class="ribbon" wx:if="{{item.disabled}}">Soon</view>
+        </view>
+        <view class="ct">
+          <view class="title">{{item.title}}</view>
+        </view>
+      </view>
+    </block>
   </view>
 </view>
-
