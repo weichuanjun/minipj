@@ -13,11 +13,11 @@ Page({
     const cards = tests.map((t, i)=>({
       id: t.id,
       title: i===0 ? '分手风险评估' : t.name,
-      cover: i===0 ? '/pictures/1.PNG' : '/pictures/1.PNG',
+      cover: i===0 ? 'cloud://prod-3g6hhdfs1a90f835.7072-prod-3g6hhdfs1a90f835-1384203466/1.PNG' : 'cloud://prod-3g6hhdfs1a90f835.7072-prod-3g6hhdfs1a90f835-1384203466/1.PNG',
       entryPath: t.entryPath || `/pages/tests/${t.id}/index`
     }))
     // 加入占位测试：裁员风险评估（Coming soon）
-    cards.push({ id: 'layoff', title: '裁员风险评估', cover: '/pictures/2.png', entryPath: '', disabled: true })
+    cards.push({ id: 'layoff', title: '裁员风险评估', cover: 'cloud://prod-3g6hhdfs1a90f835.7072-prod-3g6hhdfs1a90f835-1384203466/2.png', entryPath: '', disabled: true })
     this.setData({ tests, cards })
     this.checkLogin()
   },
